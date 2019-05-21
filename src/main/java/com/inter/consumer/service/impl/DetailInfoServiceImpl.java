@@ -87,17 +87,23 @@ public class DetailInfoServiceImpl implements DetailInfoService {
 						} 
 					} else if (detailInfoTitle.get("col_cl").equals("code")) {
 							String productVal = (String) detailInfo.get((String) detailInfoTitle.get("order_col"));
-							if (productVal != null && !"".equals(productVal.trim())) {
-								String[] productValArr = productVal.split("\\^");
-
-								if (productValArr.length == 2) {
-
-									tempMap = new HashMap<String, Object>();
-									tempMap.put("title", productValArr[0]);
-									tempMap.put("content", productValArr[1]);
-									tempMap.put("titleCode", detailInfoTitle.get("order_col"));
+							
+							if (productVal != null) {
+								if (productVal.matches("N0[0-9]\\^.+")) {
+									productVal = productVal.replaceAll("\\^", "\\|");
+									result.put("detectAction", productVal);
+								} else if (!"".equals(productVal.trim())) {
+									String[] productValArr = productVal.split("\\^");
+									
+									if (productValArr.length == 2) {
+										
+										tempMap = new HashMap<String, Object>();
+										tempMap.put("title", productValArr[0]);
+										tempMap.put("content", productValArr[1]);
+										tempMap.put("titleCode", detailInfoTitle.get("order_col"));
+									}
 								}
-						}
+							}
 					} else {
 						tempMap.put("title", detailInfoTitle.get("order_col_nm"));
 						tempMap.put("content", detailInfo.get((String) detailInfoTitle.get("order_col")));

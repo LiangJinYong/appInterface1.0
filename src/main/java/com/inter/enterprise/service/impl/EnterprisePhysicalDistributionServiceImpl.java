@@ -86,7 +86,7 @@ public class EnterprisePhysicalDistributionServiceImpl implements EnterprisePhys
 					
 					String typeDb = enterprisePhysicalDistributionDao.queryCurrentLogisticsType(sequence);
 					
-					if (typeDb != null && typeDb.equals(typeParam) && !"UP".equals(typeParam)) {
+					if (typeDb != null && typeDb.equals(typeParam) && !"PG".equals(typeParam)) {
 						result.put("resultCode", 418);
 						messageUtil.addResultMsg(param, result);
 						return gson.toJson(result);
